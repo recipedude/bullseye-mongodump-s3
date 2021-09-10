@@ -10,10 +10,12 @@ else
   DSTR=$(date -u +%Y-%m-%d_%H-%M-%S)_UTC
   BACKUP_NAME="$DSTR"
 
+  # compress the backup?
   if [[ -n "${MONGODUMP_GZIP}" ]]; then
     CMD="$CMD --gzip"
   fi
 
+  # point in time backup with --oplog
   # can only enable --oplog of backing up all databases
   if [[ -z "${MONGODUMP_DB}" ]]; then  
     if [[ -n "${MONGODUMP_OPLOG}" ]]; then
@@ -21,20 +23,24 @@ else
     fi
   fi
 
+  # readPreference
   if [[ -n "${MONGO_READPREFERENCE}" ]]; then
     CMD="$CMD --readPreference=$MONGO_READPREFERENCE"
   fi
 
+  # backup a specific database only?
   if [[ -n "${MONGODUMP_DB}" ]]; then
     BACKUP_NAME="$BACKUP_NAME-$MONGODUMP_DB"
     CMD="$CMD --db=$MONGODUMP_DB"
   fi
 
+  # backup a specific colleciton only?
   if [[ -n "${MONGODUMP_COLLECTION}" ]]; then
     CMD="$CMD --collection=$MONGODUMP_COLLECTION"
     BACKUP_NAME="$BACKUP_NAME-$MONGODUMP_COLLECTION"
   fi
 
+  # archive in parallel instead of individual files
   if [[ -n "${MONGODUMP_ARCHIVE}" ]]; then
     if [[ -n "${MONGODUMP_ARCHIVE_FILENAME}" ]]; then
       BACKUP_NAME=$MONGODUMP_ARCHIVE_FILENAME
