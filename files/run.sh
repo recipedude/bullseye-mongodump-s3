@@ -6,7 +6,7 @@ if [[ -z "${MONGO_URI}" ]]; then
 	sleep 900000000
 else
   cd /data
-  CMD="mongodump --uri=\"$MONGO_URI\" $MONGO_DUMP_OPTIONS"
+  CMD="mongodump $MONGO_DUMP_OPTIONS"
   DSTR=$(date -u +%Y-%m-%d_%H-%M-%S)_UTC
   BACKUP_NAME="$DSTR"
 
@@ -28,16 +28,39 @@ else
     CMD="$CMD --readPreference=$MONGO_READPREFERENCE"
   fi
 
+  # label if any
+  if [[ -n "${MONGODUMP_LABEL}" ]]; then
+    BACKUP_NAME="$BACKUP_NAME-$MONGODUMP_LABEL"
+  fi
+
   # backup a specific database only?
   if [[ -n "${MONGODUMP_DB}" ]]; then
     BACKUP_NAME="$BACKUP_NAME-$MONGODUMP_DB"
     CMD="$CMD --db=$MONGODUMP_DB"
   fi
 
-  # backup a specific colleciton only?
+  # backup a specific collection only?
   if [[ -n "${MONGODUMP_COLLECTION}" ]]; then
     CMD="$CMD --collection=$MONGODUMP_COLLECTION"
     BACKUP_NAME="$BACKUP_NAME-$MONGODUMP_COLLECTION"
+  fi
+
+  # exclude collections
+  if [[ -n "${MONGODUMP_EXCLUDES}" ]]; then
+    IFS=',' read -ra my_array <<< "$MONGODUMP_EXCLUDES"
+    for i in "${my_array[@]}"
+    do
+      CMD="$CMD --excludeCollection=$i"
+    done
+  fi
+
+  # exclude collection prefixes
+  if [[ -n "${MONGODUMP_EXCLUDE_PREFIXES}" ]]; then
+    IFS=',' read -ra my_array <<< "$MONGODUMP_EXCLUDE_PREFIXES"
+    for i in "${my_array[@]}"
+    do
+      CMD="$CMD --excludeCollectionsWithPrefix=$i"
+    done
   fi
 
   # archive in parallel instead of individual files
@@ -53,8 +76,8 @@ else
     BACKUP_NAME="$BACKUP_NAME.tar"
   fi
 
-  #echo "Running: $CMD"
-  echo "Running mongodump"
+  echo "Running: $CMD"
+  CMD="$CMD --uri=\"$MONGO_URI\""
   echo "Backup name: $BACKUP_NAME"
   date
   $CMD
