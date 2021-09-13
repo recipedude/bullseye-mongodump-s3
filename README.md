@@ -24,8 +24,10 @@ This docker image contains:
 - ```MONGODUMP_ARCHIVE``` - output to an [archive file](https://docs.mongodb.com/database-tools/mongodump/#output-to-an-archive-file) see: [Archiving and compression in MongoDB tools](https://www.mongodb.com/blog/post/archiving-and-compression-in-mongodb-tools)
 - ```MONGODUMP_ARCHIVE_FILENAME``` - overrides the filename of the archive
 - ```MONGODUMP_LABEL``` - string that is 'injected' into the archive filename - `2021-09-10_16-54-59_UTC-[LABEL]-[DB]-[COLLECTION]-ingredient_docs.archive`
-- ```MONOGODUMP_EXCLUDES``` - collection to exclude from the dump, multiple values are comma-separated [excludeCollection](https://docs.mongodb.com/database-tools/mongodump/#std-option-mongodump.--excludeCollection)
-- ```MONOGODUMP_EXCLUDE_PREFIXES``` - string collection prefix to exclude, multiple values are comma-separated [excludeCollectionsWithPrefix](https://docs.mongodb.com/database-tools/mongodump/#std-option-mongodump.--excludeCollectionsWithPrefix)
+- ```MONGODUMP_EXCLUDES``` - collection to exclude from the dump, multiple values are comma-separated [excludeCollection](https://docs.mongodb.com/database-tools/mongodump/#std-option-mongodump.--excludeCollection)
+- ```MONGODUMP_EXCLUDE_PREFIXES``` - string collection prefix to exclude, multiple values are comma-separated [excludeCollectionsWithPrefix](https://docs.mongodb.com/database-tools/mongodump/#std-option-mongodump.--excludeCollectionsWithPrefix)
+- ```MONGODUMP_NUM_PARALLEL``` - number of parallel connections [numParallelCollections](https://docs.mongodb.com/database-tools/mongodump/#std-option-mongodump.--numParallelCollections)
+
 ### AWS Credentials and S3 options
 
 Pass in the following environment variables for AWS CLI credientals.

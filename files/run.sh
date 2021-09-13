@@ -39,6 +39,11 @@ else
     CMD="$CMD --db=$MONGODUMP_DB"
   fi
 
+  # number of parallel connections
+  if [[ -n "${MONGODUMP_NUM_PARALLEL}" ]]; then
+    CMD="$CMD -j=MONGODUMP_NUM_PARALLEL"
+  fi
+
   # backup a specific collection only?
   if [[ -n "${MONGODUMP_COLLECTION}" ]]; then
     CMD="$CMD --collection=$MONGODUMP_COLLECTION"
