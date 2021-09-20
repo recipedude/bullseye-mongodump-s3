@@ -41,7 +41,7 @@ else
 
   # number of parallel connections
   if [[ -n "${MONGODUMP_NUM_PARALLEL}" ]]; then
-    CMD="$CMD -j=MONGODUMP_NUM_PARALLEL"
+    CMD="$CMD -j=$MONGODUMP_NUM_PARALLEL"
   fi
 
   # backup a specific collection only?
@@ -57,6 +57,11 @@ else
     do
       CMD="$CMD --excludeCollection=$i"
     done
+  fi
+
+  # query filter
+  if [[ -n "${MONGODUMP_QUERY}" ]]; then
+    CMD="$CMD -q='$MONGODUMP_QUERY'"
   fi
 
   # exclude collection prefixes

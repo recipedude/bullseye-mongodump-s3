@@ -27,6 +27,7 @@ This docker image contains:
 - ```MONGODUMP_EXCLUDES``` - collection to exclude from the dump, multiple values are comma-separated [excludeCollection](https://docs.mongodb.com/database-tools/mongodump/#std-option-mongodump.--excludeCollection)
 - ```MONGODUMP_EXCLUDE_PREFIXES``` - string collection prefix to exclude, multiple values are comma-separated [excludeCollectionsWithPrefix](https://docs.mongodb.com/database-tools/mongodump/#std-option-mongodump.--excludeCollectionsWithPrefix)
 - ```MONGODUMP_NUM_PARALLEL``` - number of parallel connections [numParallelCollections](https://docs.mongodb.com/database-tools/mongodump/#std-option-mongodump.--numParallelCollections)
+- ```MONGODUMP_QUERY``` -  JSON as a query that optionally limits the documents included in the output of mongodump. You must also specify the --collection option. See [query](https://docs.mongodb.com/database-tools/mongodump/#std-option-mongodump.--query) for more detail.
 
 ### AWS Credentials and S3 options
 
