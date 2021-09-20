@@ -2,7 +2,7 @@
 
 Debian slim + MongoDump + AWS CLI docker image for Kubernetes; rigged up to backup mongodb, a single database, or a single collection to an s3 bucket
 
-[![docker pulls](https://img.shields.io/docker/pulls/recipedude/bullseye-aws-nfs-clients.svg?style=plastic)](https://cloud.docker.com/u/recipedude/repository/docker/recipedude/bullseye-mongodump-s3)
+[![docker pulls](https://img.shields.io/docker/pulls/recipedude/bullseye-mongodump-s3.svg?style=plastic)](https://cloud.docker.com/u/recipedude/repository/docker/recipedude/bullseye-mongodump-s3)
 
 This docker image contains:
 
