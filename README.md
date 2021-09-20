@@ -1,4 +1,4 @@
-:warning This repo has moved to [slim-mongodump.s3](https://github.com/recipedude/slim-mongodump-s3)
+:warning: This repo has moved to [slim-mongodump.s3](https://github.com/recipedude/slim-mongodump-s3)
 
 Debian slim + MongoDump + AWS CLI docker image for Kubernetes; rigged up to backup mongodb, a single database, or a single collection to an s3 bucket
 
